@@ -1,0 +1,195 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaLoudnessMeter.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:AvaloniaLoudnessMeter"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+        Width="900" Height="600"
+        x:Class="AvaloniaLoudnessMeter.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="AvaloniaLoudnessMeter">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Button.small">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Background" Value="{DynamicResource LightBLueBrush}"></Setter>
+            <Setter Property="CornerRadius" Value="16"></Setter>
+            <Setter Property="Padding" Value="6, 3"></Setter>
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource LightBlueHoverBrush}"></Setter>
+            <Setter Property="Foreground" Value="Azure"></Setter>
+        </Style>
+        <Style Selector="Button Image">
+            <Setter Property="Width" Value="13"></Setter>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Title Bar -->
+        <Grid Grid.Row="0" Background="{DynamicResource MidGreyBrush}" Height="40"
+              ColumnDefinitions="Auto, Auto, *, Auto, Auto">
+            <Grid.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="Width" Value="45"></Setter>
+                    <Setter Property="Height" Value="30"></Setter>
+                </Style>
+                <Style Selector="Button Image">
+                    <Setter Property="Width" Value="30"></Setter>
+                </Style>
+                <Style Selector="Button /template/ ContentPresenter">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"></TransformOperationsTransition>
+                        </Transitions>
+                    </Setter>
+                </Style>
+                <Style Selector="Button:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="RenderTransform" Value="scale(1.12)"></Setter>
+                </Style>
+            </Grid.Styles>
+            <Button Grid.Column="0" Margin="2, 0">
+                <Image Source="{SvgImage /Assets/Images/monitor.svg}"></Image>
+            </Button>
+            <Button Grid.Column="1">
+                <Image Source="{SvgImage /Assets/Images/Lock.svg}"></Image>
+            </Button>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <Label FontWeight="Black" Foreground="Black">AVALONIA</Label>
+                <Label Foreground="Black">LOUDNESS METER</Label>
+            </StackPanel>
+            <Button Grid.Column="3">
+                <Image Source="{SvgImage /Assets/Images/Export.svg}"></Image>
+            </Button>
+            <Button Grid.Column="4" Margin="2, 0">
+                <Image Source="{SvgImage /Assets/Images/cog.svg}"></Image>
+            </Button>
+        </Grid>
+
+        <!-- Main are -->
+        <Grid Grid.Row="1" ColumnDefinitions="Auto, Auto, *" Background="{DynamicResource DarkBlueBrush}">
+            <!-- Volume Bar -->
+            <Grid Grid.Column="0" Width="140" RowDefinitions="*, Auto, Auto" Margin="0, 15">
+                <!-- Volume Meter -->
+                <Grid Grid.Row="0"
+                      RowDefinitions="3*,3*,3*,9*,5*,4*,9*,9*,9*,6*,Auto"
+                      ColumnDefinitions="Auto, *, Auto, Auto"
+                      Margin="10, 0">
+                    <!-- Left lines with metrics -->
+                    <Grid.Styles>
+                        <Style Selector="Label">
+                            <Setter Property="Foreground" Value="Azure"></Setter>
+                            <Setter Property="FontSize" Value="12"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                            <Setter Property="Padding" Value="0"></Setter>
+                        </Style>
+                    </Grid.Styles>
+                    <Label Grid.Column="0" Grid.Row="0">0 —</Label>
+                    <Label Grid.Column="0" Grid.Row="1">-3 —</Label>
+                    <Label Grid.Column="0" Grid.Row="2">-6 —</Label>
+                    <Label Grid.Column="0" Grid.Row="3">-9 —</Label>
+                    <Label Grid.Column="0" Grid.Row="4">-18 —</Label>
+                    <Label Grid.Column="0" Grid.Row="5">-23 —</Label>
+                    <Label Grid.Column="0" Grid.Row="6">-27 —</Label>
+                    <Label Grid.Column="0" Grid.Row="7">-36 —</Label>
+                    <Label Grid.Column="0" Grid.Row="8">-45 —</Label>
+                    <Label Grid.Column="0" Grid.Row="9">-54 —</Label>
+                    <Label Grid.Column="0" Grid.Row="10"></Label>
+
+                    <!-- Volume Bar -->
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="11" RowDefinitions="23*, 37*" Width="20">
+                        <Rectangle Grid.Row="0" Margin="0, 8, 0, -8" Fill="Salmon"></Rectangle>
+                        <Rectangle Grid.Row="1" Margin="0, 8, 0, 0" Fill="Azure"></Rectangle>
+
+                    </Grid>
+
+                    <!-- Right lines -->
+                    <Label Grid.Column="2" Grid.Row="0">—</Label>
+                    <Label Grid.Column="2" Grid.Row="1">—</Label>
+                    <Label Grid.Column="2" Grid.Row="2">—</Label>
+                    <Label Grid.Column="2" Grid.Row="3">—</Label>
+                    <Label Grid.Column="2" Grid.Row="4">—</Label>
+                    <Label Grid.Column="2" Grid.Row="5">—</Label>
+                    <Label Grid.Column="2" Grid.Row="6">—</Label>
+                    <Label Grid.Column="2" Grid.Row="7">—</Label>
+                    <Label Grid.Column="2" Grid.Row="8">—</Label>
+                    <Label Grid.Column="2" Grid.Row="9">—</Label>
+                    <Label Grid.Column="2" Grid.Row="10"></Label>
+
+                    <!-- Arrow -->
+                    <Canvas Grid.Row="0" Grid.RowSpan="11" Grid.Column="3" Width="16">
+                        <Rectangle Canvas.Top="0" Canvas.Left="2" Height="20" Width="15" Fill="Azure"></Rectangle>
+                    </Canvas>
+
+                </Grid>
+
+                <!-- LUFS label -->
+                <Label Grid.Row="1" Margin="0, 5" HorizontalAlignment="Center" Foreground="White" FontSize="18">LUFS</Label>
+
+                <!-- Volume bar bottom buttons -->
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Classes="small" Margin="10, 0" Height="25" Width="25" Padding="3">
+                        <Image Margin="5, 0, 3, 0" Source="{SvgImage /Assets/Images/Skip.svg}" />
+                    </Button>
+                    <Button Classes="small" Margin="10, 0">INT-LRA</Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Details Bar -->
+            <StackPanel Grid.Column="1" Width="170">
+                <StackPanel.Styles>
+                    <Style Selector="controls|LargeLabelControl">
+                        <Setter Property="Margin" Value="8, 0"></Setter>
+                    </Style>
+                </StackPanel.Styles>
+                <StackPanel.Styles>
+                    <Style Selector="controls|LargeLabelControl.button">
+                        <Setter Property="Margin" Value="8, 0"></Setter>
+                        <Setter Property="Width" Value="150"></Setter>
+                    </Style>
+                </StackPanel.Styles>
+                <controls:LargeLabelControl LargeText="-21.5 LUFS" SmallText="SHORT TERM" Margin="8,16,8,0"></controls:LargeLabelControl>
+                <controls:LargeLabelControl LargeText="-21.9 LUFS" SmallText="INTEGRATED" Background="{DynamicResource GrayishBlueBrush}"></controls:LargeLabelControl>
+                <controls:LargeLabelControl LargeText="8.8 LU" SmallText="LOUDNESS RANGE"></controls:LargeLabelControl>
+                <controls:LargeLabelControl LargeText="16.3 LU" SmallText="REALTIME DYNAMICS"></controls:LargeLabelControl>
+                <controls:LargeLabelControl LargeText="21.8 LU" SmallText="AVG. DYNAMICS (PLR)"></controls:LargeLabelControl>
+
+                <controls:LargeLabelControl Classes="button" LargeText="-11.8 LUFS" SmallText="MOMENTARY MAX" Margin="8, 10, 8, 3"></controls:LargeLabelControl>
+                <controls:LargeLabelControl Classes="button" LargeText="-19.8 LUFS" SmallText="SHORT TERM MAX" Margin="8, 3, 8, 3"></controls:LargeLabelControl>
+                <controls:LargeLabelControl Classes="button" LargeText="-0.3 dB" SmallText="TRUE PEAK MAX" Margin="8, 3, 8, 0"></controls:LargeLabelControl>
+
+
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0, 10, 0, 0">
+                    <Button Classes="small" Height="25" Margin="0, 0, 10, 0">AUTO</Button>
+                    <Button Margin="7, 0, 0, 0" Classes="small" Height="25" Width="25" Background="{DynamicResource FadedRedBrush}" Padding="3">
+                        <Image Margin="3, 0, 3, 0" Source="{SvgImage /Assets/Images/Cross.svg}" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Graph -->
+            <Rectangle Grid.Column="2" Fill="Teal"></Rectangle>
+        </Grid>
+
+        <!-- Bottom bar -->
+        <Grid Grid.Row="2" Margin="8" ColumnDefinitions="Auto, Auto, *, Auto, Auto, Auto, Auto, Auto">
+            <Button Grid.Column="0" Margin="8, 0, 8, 0">Stereo</Button>
+            <Button Grid.Column="1">Youtube</Button>
+            <Button Grid.Column="3" Margin="0, 0, 8, 0">10 SEC</Button>
+            <Button Grid.Column="4" Margin="0, 0, 8, 0">Continuous</Button>
+            <Rectangle Grid.Column="5" Margin="0, 0, 8, 0" Width="30" Fill="CornflowerBlue"></Rectangle>
+            <Rectangle Grid.Column="6" Margin="0, 0, 8, 0" Width="30" Fill="PaleVioletRed"></Rectangle>
+        </Grid>
+    </Grid>
+</Window>
