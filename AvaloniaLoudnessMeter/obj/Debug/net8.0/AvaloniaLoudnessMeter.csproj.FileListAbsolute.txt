@@ -80,3 +80,4 @@
 /Users/armanaslanyan/Desktop/avalonia/AvaloniaLoudnessMeter/AvaloniaLoudnessMeter/obj/Debug/net8.0/AvaloniaLoudnessMeter.pdb
 /Users/armanaslanyan/Desktop/avalonia/AvaloniaLoudnessMeter/AvaloniaLoudnessMeter/obj/Debug/net8.0/AvaloniaLoudnessMeter.genruntimeconfig.cache
 /Users/armanaslanyan/Desktop/avalonia/AvaloniaLoudnessMeter/AvaloniaLoudnessMeter/obj/Debug/net8.0/ref/AvaloniaLoudnessMeter.dll
+/Users/armanaslanyan/Desktop/avalonia/AvaloniaLoudnessMeter/AvaloniaLoudnessMeter/obj/Debug/net8.0/AvaloniaLoudnessMeter.sourcelink.json
