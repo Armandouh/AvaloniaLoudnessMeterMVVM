@@ -5,20 +5,19 @@ using System.Threading.Tasks;
 using Avalonia.Automation;
 using Avalonia.Controls.Documents;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaLoudnessMeter.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    [ObservableProperty] public string boldTitle = "Hello";
+    [ObservableProperty] private string _boldTitle = "AVALONIA";
 
-    public MainViewModel()
-    {
-        Task.Run(async () =>
-        {
-            await Task.Delay(2000);
-            BoldTitle = "New Title 2";
-        });
-    }
+    [ObservableProperty] private string _regularTitle = "LOUDNESS METER";
+
+    [ObservableProperty] private bool _channelConfigurationOpen = false;
+
+    [RelayCommand]
+    private void _channelConfigurationButtonPressed() => ChannelConfigurationOpen ^= true;
     
 }

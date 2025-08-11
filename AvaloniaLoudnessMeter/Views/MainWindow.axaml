@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:AvaloniaLoudnessMeter"
-        mc:Ignorable="d" d:DesignWidth="1048" d:DesignHeight="650"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
         Width="900" Height="600"
         x:Class="AvaloniaLoudnessMeter.Views.MainWindow"
         x:DataType="vm:MainViewModel"
@@ -33,8 +33,22 @@
         </Style>
     </Window.Styles>
 
-    <Grid RowDefinitions="Auto, *, Auto">
+    <!-- MainGrid -->
+    <Grid Name="MainGrid" RowDefinitions="Auto, *, Auto" Background="Transparent">
         <!-- Title Bar -->
+        
+        <!-- Channel Configuration Popup -->
+        <Border 
+            Grid.RowSpan="3"
+            Name="ChannelConfigurationPopup"
+            Background="Red"
+            Opacity="0.5"
+            ZIndex="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <Label>TEST</Label>
+        </Border>
+        
         <Grid Grid.Row="0" Background="{DynamicResource MidGreyBrush}" Height="40"
               ColumnDefinitions="Auto, Auto, *, Auto, Auto">
             <Grid.Styles>
@@ -67,7 +81,7 @@
             <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                 <Label FontWeight="Black" Foreground="Black" Content="{Binding BoldTitle}" />
-                <Label Foreground="Black">LOUDNESS METER</Label>
+                <Label Foreground="Black" Content="{Binding RegularTitle}"/>
             </StackPanel>
             <Button Grid.Column="3">
                 <Image Source="{SvgImage /Assets/Images/Export.svg}"></Image>
@@ -183,8 +197,8 @@
         </Grid>
 
         <!-- Bottom bar -->
-        <Grid Grid.Row="2" Margin="8" ColumnDefinitions="Auto, Auto, *, Auto, Auto, Auto, Auto, Auto">
-            <Button Grid.Column="0" Margin="8, 0, 8, 0">Stereo</Button>
+        <Grid Grid.Row="2" Background="White" Margin="8" ColumnDefinitions="Auto, Auto, *, Auto, Auto, Auto, Auto, Auto">
+            <Button Grid.Column="0" Name="ChannelConfigurationButton" Margin="8, 0, 8, 0">Stereo</Button>
             <Button Grid.Column="1">Youtube</Button>
             <Button Grid.Column="3" Margin="0, 0, 8, 0">10 SEC</Button>
             <Button Grid.Column="4" Margin="0, 0, 8, 0">Continuous</Button>
