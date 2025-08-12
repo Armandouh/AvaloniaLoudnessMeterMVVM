@@ -1,7 +1,6 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 
 namespace AvaloniaLoudnessMeter.Views;
 
@@ -9,38 +8,41 @@ public partial class MainWindow : Window
 {
     #region Private Members
 
-    private Control mChannelConfigPopup;
-    private Control mChannelConfigButton;
-    private Control mMainGrid;
+    private readonly Control _mChannelConfigPopup;
+    private readonly Control _mChannelConfigButton;
+    private readonly Control _mMainGrid;
 
     #endregion
+
     public MainWindow()
     {
-        try
-        {
-            InitializeComponent();
-            mChannelConfigButton = this.FindControl<Control>("ChannelConfigurationButton") ?? throw new Exception("Cannot find Channel Configuration Button by name");
-            mChannelConfigPopup = this.FindControl<Control>("ChannelConfigurationPopup") ?? throw new Exception("Cannot find Channel Configuration Popup by name");
-            mMainGrid = this.FindControl<Control>("MainGrid") ?? throw new Exception("Cannot find Main Grid by name");
+        InitializeComponent();
 
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error in mainWindow {ex}");
-            throw;
-        }
+        _mChannelConfigButton = this.FindControl<Control>("ChannelConfigurationButton")
+                               ?? throw new Exception("Cannot find Channel Configuration Button by name");
+        
+        _mChannelConfigPopup = this.FindControl<Control>("ChannelConfigurationPopup")
+                              ?? throw new Exception("Cannot find Channel Configuration Popup by name");
+
+        _mMainGrid = this.FindControl<Control>("MainGrid")
+                    ?? throw new Exception("Cannot find Main Grid by name");
+
+        // Wait until layout is ready
+        this.LayoutUpdated += OnLayoutUpdated;
     }
 
-    public override void Render(DrawingContext context)
+
+    private void OnLayoutUpdated(object? sender, EventArgs e)
     {
-        base.Render(context);
+        // Get relative position of button 
+        var pos = _mChannelConfigButton.TranslatePoint(new Point(0, 0), _mMainGrid)
+                  ?? throw new Exception("Cannot find control position");
         
-        var pos = mChannelConfigButton.TranslatePoint(new Point(), mMainGrid) ?? throw new Exception("Cannot find the position of a Button");
-        mChannelConfigPopup.Margin = new Thickness(
+        // Set the position of the Popup to bottom left of the button
+        _mChannelConfigPopup.Margin = new Thickness(
             pos.X,
             0,
             0,
-            mMainGrid.Bounds.Height - pos.Y - mChannelConfigButton.Bounds.Height
-        );
+            _mMainGrid.Bounds.Height - pos.Y - _mChannelConfigButton.Bounds.Height);
     }
 }

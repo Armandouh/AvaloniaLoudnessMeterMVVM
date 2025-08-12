@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AvaloniaLoudnessMeter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+119801e5134e85892555041d496847bf66365016")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f41bed7c54f3203feb5748c84844ec845aba638d")]
 [assembly: System.Reflection.AssemblyProductAttribute("AvaloniaLoudnessMeter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AvaloniaLoudnessMeter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
