@@ -13,7 +13,7 @@
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel/>
+        <vm:MainViewModel />
     </Design.DataContext>
 
     <Window.Styles>
@@ -32,41 +32,51 @@
             <Setter Property="Width" Value="13"></Setter>
         </Style>
         <Style Selector="Border.channel">
-            <Setter Property="Width" Value="1"></Setter>
-            <Setter Property="Height" Value="1"></Setter>
+            <Setter Property="Width" Value="0"></Setter>
+            <Setter Property="Height" Value="0"></Setter>
             <Setter Property="Opacity" Value="0"></Setter>
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Property="Width" Duration="0:0:1"></DoubleTransition>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.4"></DoubleTransition>
-                    <DoubleTransition Property="Height" Duration="0:0:1"></DoubleTransition>
+                    <DoubleTransition Property="Width" Duration="0:0:0.2" Easing="QuadraticEaseIn"></DoubleTransition>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.25"></DoubleTransition>
+                    <DoubleTransition Property="Height" Duration="0:0:0.2" Easing="QuadraticEaseIn"></DoubleTransition>
                 </Transitions>
             </Setter>
         </Style>
         <Style Selector="Border.channel.open">
-            <Setter Property="Width" Value="300"></Setter>
-            <Setter Property="Height" Value="650"></Setter>
+            <Setter Property="Width" Value="250"></Setter>
+            <Setter Property="Height" Value="550"></Setter>
             <Setter Property="Opacity" Value="1"></Setter>
         </Style>
     </Window.Styles>
 
     <!-- MainGrid -->
-    <Grid Name="MainGrid" RowDefinitions="Auto, *, Auto" Background="Transparent">
+    <Grid Name="MainGrid" RowDefinitions="Auto, *, Auto" Background="Transparent" ClipToBounds="True">
         <!-- Title Bar -->
-        
+
+        <Border
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            ZIndex="1"
+            Background="Transparent"
+            IsVisible="{Binding ChannelConfigurationIsOpen}"
+            PointerPressed="InputElement_OnPointerPressed">
+        </Border>
+
         <!-- Channel Configuration Popup -->
-        <Border 
+        <Border
+            Grid.Row="0"
             Grid.RowSpan="3"
             Classes="channel"
             Classes.open="{Binding ChannelConfigurationIsOpen}"
             Name="ChannelConfigurationPopup"
             Background="Red"
-            ZIndex="1"
+            ZIndex="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom">
             <Label>TEST</Label>
         </Border>
-        
+
         <Grid Grid.Row="0" Background="{DynamicResource MidGreyBrush}" Height="40"
               ColumnDefinitions="Auto, Auto, *, Auto, Auto">
             <Grid.Styles>
@@ -99,7 +109,7 @@
             <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                 <Label FontWeight="Black" Foreground="Black" Content="{Binding BoldTitle}" />
-                <Label Foreground="Black" Content="{Binding RegularTitle}"/>
+                <Label Foreground="Black" Content="{Binding RegularTitle}" />
             </StackPanel>
             <Button Grid.Column="3">
                 <Image Source="{SvgImage /Assets/Images/Export.svg}"></Image>
@@ -192,19 +202,28 @@
                     </Style>
                 </StackPanel.Styles>
                 <controls:LargeLabelControl LargeText="-21.5 LUFS" SmallText="SHORT TERM" Margin="8,16,8,0"></controls:LargeLabelControl>
-                <controls:LargeLabelControl LargeText="-21.9 LUFS" SmallText="INTEGRATED" Background="{DynamicResource GrayishBlueBrush}"></controls:LargeLabelControl>
+                <controls:LargeLabelControl LargeText="-21.9 LUFS" SmallText="INTEGRATED"
+                                            Background="{DynamicResource GrayishBlueBrush}">
+                </controls:LargeLabelControl>
                 <controls:LargeLabelControl LargeText="8.8 LU" SmallText="LOUDNESS RANGE"></controls:LargeLabelControl>
                 <controls:LargeLabelControl LargeText="16.3 LU" SmallText="REALTIME DYNAMICS"></controls:LargeLabelControl>
                 <controls:LargeLabelControl LargeText="21.8 LU" SmallText="AVG. DYNAMICS (PLR)"></controls:LargeLabelControl>
 
-                <controls:LargeLabelControl Classes="button" LargeText="-11.8 LUFS" SmallText="MOMENTARY MAX" Margin="8, 10, 8, 3"></controls:LargeLabelControl>
-                <controls:LargeLabelControl Classes="button" LargeText="-19.8 LUFS" SmallText="SHORT TERM MAX" Margin="8, 3, 8, 3"></controls:LargeLabelControl>
-                <controls:LargeLabelControl Classes="button" LargeText="-0.3 dB" SmallText="TRUE PEAK MAX" Margin="8, 3, 8, 0"></controls:LargeLabelControl>
+                <controls:LargeLabelControl Classes="button" LargeText="-11.8 LUFS" SmallText="MOMENTARY MAX"
+                                            Margin="8, 10, 8, 3">
+                </controls:LargeLabelControl>
+                <controls:LargeLabelControl Classes="button" LargeText="-19.8 LUFS" SmallText="SHORT TERM MAX"
+                                            Margin="8, 3, 8, 3">
+                </controls:LargeLabelControl>
+                <controls:LargeLabelControl Classes="button" LargeText="-0.3 dB" SmallText="TRUE PEAK MAX"
+                                            Margin="8, 3, 8, 0">
+                </controls:LargeLabelControl>
 
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0, 10, 0, 0">
                     <Button Classes="small" Height="25" Margin="0, 0, 10, 0">AUTO</Button>
-                    <Button Margin="7, 0, 0, 0" Classes="small" Height="25" Width="25" Background="{DynamicResource FadedRedBrush}" Padding="3">
+                    <Button Margin="7, 0, 0, 0" Classes="small" Height="25" Width="25"
+                            Background="{DynamicResource FadedRedBrush}" Padding="3">
                         <Image Margin="3, 0, 3, 0" Source="{SvgImage /Assets/Images/Cross.svg}" />
                     </Button>
                 </StackPanel>
@@ -215,8 +234,12 @@
         </Grid>
 
         <!-- Bottom bar -->
-        <Grid Grid.Row="2" Background="White" Margin="8" ColumnDefinitions="Auto, Auto, *, Auto, Auto, Auto, Auto, Auto">
-            <Button Grid.Column="0" Name="ChannelConfigurationButton" Command="{Binding ChannelConfigurationButtonPressedCommand}" Margin="8, 0, 8, 0">Stereo</Button>
+        <Grid Grid.Row="2" Background="White" Margin="8"
+              ColumnDefinitions="Auto, Auto, *, Auto, Auto, Auto, Auto, Auto">
+            <Button Grid.Column="0" Name="ChannelConfigurationButton"
+                    Command="{Binding ChannelConfigurationButtonPressedCommand}" Margin="8, 0, 8, 0">
+                Stereo
+            </Button>
             <Button Grid.Column="1">Youtube</Button>
             <Button Grid.Column="3" Margin="0, 0, 8, 0">10 SEC</Button>
             <Button Grid.Column="4" Margin="0, 0, 8, 0">Continuous</Button>

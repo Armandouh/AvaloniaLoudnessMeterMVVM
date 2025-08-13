@@ -1,6 +1,8 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using AvaloniaLoudnessMeter.ViewModels;
 
 namespace AvaloniaLoudnessMeter.Views;
 
@@ -45,4 +47,7 @@ public partial class MainWindow : Window
             0,
             _mMainGrid.Bounds.Height - pos.Y - _mChannelConfigButton.Bounds.Height);
     }
+
+    private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e) =>
+        ((MainViewModel)DataContext!).ChannelConfigurationButtonPressedCommand.Execute(null);
 }
